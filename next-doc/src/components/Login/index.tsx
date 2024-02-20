@@ -2,14 +2,16 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-20 16:34:40
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-20 18:40:12
+ * @LastEditTime: 2024-02-20 21:04:16
  * @FilePath: /next-doc/src/components/Login/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import { NextPage } from 'next'
 import styles from './index.module.scss'
 import { ChangeEvent, useState } from 'react'
+import request from '../../../service/fetch'
 import CountDown from '../CountDown'
+import { message } from 'antd'
 
 interface IProps {
   isShow: boolean;
@@ -19,16 +21,14 @@ interface IProps {
 const Login = (props: IProps) => {
   const { isShow = false } = props
   const [isShowVerifyCode, setIsShowVerifyCode] = useState(false)
+
+  const [count, setCount] = useState(10)
   const [form, setForm] = useState({
     phone: '',
     verify: '',
   })
 
   const handleClose = () => {}
-
-  const handleGetVerifyCode = () => {
-    setIsShowVerifyCode(true)
-  }
 
   const handleLogin = () => {}
 
@@ -42,7 +42,43 @@ const Login = (props: IProps) => {
     })
   }
 
-  const handleCountDownEnd = () => {}
+  const handleGetVerifyCode = () => {
+    if (!form?.phone) {
+      message.warning('请输入手机号')
+      return
+    }
+
+    //发起网路请求
+    request.post('/api/articles/list', {}).then((res: any) => {
+      if (res?.code === 0) {
+        //设置为获取了验证码
+        setIsShowVerifyCode(true)
+
+        //启动定时器
+        const id = setInterval(() => {
+          setCount((count) => {
+            if (count === 0) {
+              clearInterval(id)
+              handleCountDownEnd()
+              return count
+            } else {
+              return count - 1
+            }
+          })
+          return () => {
+            console.log('清理了')
+            clearInterval(id)
+          }
+        }, 1000)
+      } else {
+        message.error(res?.msg || '未知错误')
+      }
+    })
+  }
+
+  const handleCountDownEnd = () => {
+    setIsShowVerifyCode(false)
+  }
 
   return isShow ? (
     <div className={styles.loginArea}>
@@ -70,7 +106,7 @@ const Login = (props: IProps) => {
           ></input>
           <span className={styles.verifyCode} onClick={handleGetVerifyCode}>
             {isShowVerifyCode ? (
-              <CountDown time={10} onEnd={handleCountDownEnd}></CountDown>
+              <CountDown time={count} onEnd={handleCountDownEnd} />
             ) : (
               '获取验证码'
             )}
