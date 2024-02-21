@@ -3,7 +3,7 @@ import { DatabaseType } from 'typeorm/browser/driver/types/DatabaseType.js';
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-20 22:12:18
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-21 17:13:13
+ * @LastEditTime: 2024-02-21 18:40:46
  * @FilePath: /next-doc/db/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
