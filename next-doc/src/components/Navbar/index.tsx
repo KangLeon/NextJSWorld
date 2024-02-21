@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-28 16:52:45
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-21 16:32:59
+ * @LastEditTime: 2024-02-21 22:07:05
  * @FilePath: /next-doc/src/components/Navbar/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,7 +10,6 @@
 
 import { NextPage } from 'next'
 import { navs } from './config'
-import userStore from '../../../store/userStore'
 import Link from 'next/link'
 import styles from './index.module.scss'
 import { usePathname } from 'next/navigation'
@@ -22,7 +21,7 @@ import { useStore } from '../../../store'
 
 const Navbar: NextPage = () => {
   const store = useStore()
-  const { mobile, avatar } = store.user.userInfo
+  const { nickname, avatar } = store.user.userInfo
   const pathname = usePathname()
   const [isShowLogin, setIsShowLogin] = useState(false)
 
@@ -65,7 +64,7 @@ const Navbar: NextPage = () => {
       </section>
       <section className={styles.operationArea}>
         <Button onClick={handleGotoEditorPage}>写文章</Button>
-        {mobile ? (
+        {nickname ? (
           <>
             <Dropdown menu={{ items }} placement="bottomLeft">
               <Avatar src={avatar} size={32}></Avatar>

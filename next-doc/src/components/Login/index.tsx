@@ -2,10 +2,12 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-20 16:34:40
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-21 16:25:33
+ * @LastEditTime: 2024-02-21 22:03:21
  * @FilePath: /next-doc/src/components/Login/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+'use client'
+
 import { NextPage } from 'next'
 import styles from './index.module.scss'
 import { ChangeEvent, useState } from 'react'
@@ -13,6 +15,7 @@ import request from '../../service/fetch'
 import CountDown from '../CountDown'
 import { useStore } from '../../../store'
 import { message } from 'antd'
+import { setCookie } from 'cookies-next'
 
 interface IProps {
   isShow: boolean;
@@ -41,6 +44,9 @@ const Login = (props: IProps) => {
           onClose?.()
           message.success('登录成功')
           store.user.setUserInfo(res?.data)
+          setCookie('id', res?.data.id)
+          setCookie('nickname', res?.data.nickname)
+          setCookie('avatar', res?.data.avatar)
         } else {
           message.error(res?.msg || '未知错误')
         }
