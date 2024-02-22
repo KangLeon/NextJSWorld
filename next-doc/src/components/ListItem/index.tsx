@@ -2,12 +2,13 @@ import { EyeOutlined } from '@ant-design/icons';
 import { Avatar } from 'antd';
 import Link from 'next/link'
 import { formatDistanceToNow } from 'date-fns';
+import Markdown from "react-markdown";
 
 /*
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-22 22:06:17
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-22 23:36:16
+ * @LastEditTime: 2024-02-22 23:46:18
  * @FilePath: /next-doc/src/components/ListItem/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -44,7 +45,7 @@ const ListITem = (props: IProps) => {
                 </div>
                 <h4 className="text-gray-700 text-xl overflow-hidden text-ellipsis whitespace-nowrap mb-5">{article?.title}</h4>
                 <p className="text-base text-zinc-400 overflow-hidden text-ellipsis whitespace-nowrap mb-5">
-                    {article?.content}
+                    <Markdown>{article?.content}</Markdown>
                 </p>
                 <div className='flex flex-row items-center'>
                     <EyeOutlined></EyeOutlined>
