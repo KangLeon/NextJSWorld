@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-28 16:52:45
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-22 12:20:38
+ * @LastEditTime: 2024-02-22 18:35:09
  * @FilePath: /next-doc/src/components/Navbar/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -23,7 +23,7 @@ import Login from '../Login'
 import request from '../../service/fetch'
 import { useRouter } from 'next/navigation'
 
-const Navbar: NextPage = () => {
+const Navbar = () => {
   const store = useStore()
   const { id, avatar } = store.user.userInfo
   const pathname = usePathname()
