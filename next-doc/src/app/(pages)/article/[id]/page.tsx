@@ -1,6 +1,6 @@
 'use client'
 
-import { IArticle, IUser } from '@/components/ListItem'
+import { IUser } from '@/components/ListItem'
 import { Avatar, Button, Divider, Input, message } from 'antd'
 import Link from 'next/link'
 import MarkDown from 'markdown-to-jsx'
@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react'
 import { observer } from 'mobx-react-lite'
 import { useStore } from '../../../../../store'
 import request from '../../../../service/fetch'
+import { format } from 'date-fns'
 
 export interface IComment { 
   id: number
@@ -137,9 +138,9 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
               <div className='flex flex-col ml-4 w-full'>
                 <div className='flex flex-row items-center justify-between'>
                   <div className='mr-4 text-base font-bold'>{commentItem?.user?.nickname}</div>
-                  <div className='text-base text-gray-400'>{commentItem?.update_time}</div>
+                  <div className='text-sm text-gray-400'>{format(commentItem?.update_time, 'yyyy-MM-dd HH:mm:ss')}</div>
                 </div>
-                <div className='mt-4 text-sm'>{commentItem?.content}</div>
+                <div className='mt-4 text-sm text-gray-500'>{commentItem?.content}</div>
               </div>
             </div>
           ))}
