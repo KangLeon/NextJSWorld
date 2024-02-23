@@ -1,6 +1,6 @@
 'use client'
 
-import { IArticle } from '@/components/ListItem'
+import { IArticle, IUser } from '@/components/ListItem'
 import { Avatar, Button, Divider, Input, message } from 'antd'
 import Link from 'next/link'
 import MarkDown from 'markdown-to-jsx'
@@ -9,10 +9,19 @@ import { observer } from 'mobx-react-lite'
 import { useStore } from '../../../../../store'
 import request from '../../../../service/fetch'
 
+export interface IComment { 
+  id: number
+  content: string
+  create_time: string
+  update_time: string
+  user: IUser
+}
+
 const Page = ({ params: { id } }: { params: { id: number } }) => {
 
   const [article, setArticle] = useState<Record<string, any>>({})
   const [content, setContent] = useState<string>('')
+  const [comments, setComments] = useState<Array<IComment>>([])
   const [commentValue, setCommentValue] = useState('')
 
   const store = useStore()
@@ -20,6 +29,7 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
 
   const userId = userInfo.id
   const avatar = userInfo.avatar
+  const nickname = userInfo.nickname
 
   const requestGetArticle = () => {
     if (id === null || id === undefined) {
@@ -32,11 +42,13 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
         articleId: id,
         view: 1,
         user: 1,
+        comment: 1,
       })
       .then((res: any) => {
         if (res?.code === 0) {
           setArticle(res?.data)
           setContent(res?.data?.content)
+          setComments(res?.data?.comments)
         } else {
           message.error(res?.msg || '文章获取失败')
         }
@@ -55,6 +67,19 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
     }).then((res: any) => { 
       if (res?.code === 0) {
         message?.warning('发布评论成功')
+        const newComment = [{
+          id: Math.random(),
+          create_time: new Date().toUTCString(),
+          update_time: new Date().toUTCString(),
+          content: commentValue,
+          user: {
+            id: userId || 0,
+            avatar: avatar || '',
+            nickname: nickname || '',
+            mobile: '',
+          }
+        }, ...comments]
+        setComments(newComment)
         setCommentValue('')
       } else { 
         message?.warning('发布评论失败')
@@ -105,6 +130,20 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
             </div>
           </div>
         )}
+        <div>
+          {comments?.map(commentItem => (
+            <div className='flex flex-row my-5' key={commentItem.id}>
+              <Avatar src={commentItem?.user?.avatar} size={40}></Avatar>
+              <div className='flex flex-col ml-4 w-full'>
+                <div className='flex flex-row items-center justify-between'>
+                  <div className='mr-4 text-base font-bold'>{commentItem?.user?.nickname}</div>
+                  <div className='text-base text-gray-400'>{commentItem?.update_time}</div>
+                </div>
+                <div className='mt-4 text-sm'>{commentItem?.content}</div>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
