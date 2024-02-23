@@ -44,8 +44,8 @@ export default async function Page({
   console.log('拿到了cookie中的内容' + JSON.stringify(userId))
 
   return (
-    <div className="px-40 min-h-96">
-      <h2 className="text-3xl font-bold mb-10 mt-10">{article?.title}</h2>
+    <div className="mx-40 px-5 min-h-96 bg-white">
+      <h2 className="text-3xl font-bold mb-10 pt-10">{article?.title}</h2>
       <div className="flex flex-row justify-start items-center mb-8">
         <Avatar src={user?.avatar} size={50}></Avatar>
         <div className=" ml-3">

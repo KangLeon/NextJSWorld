@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-21 23:59:05
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-23 13:58:09
+ * @LastEditTime: 2024-02-23 14:43:35
  * @FilePath: /next-doc/src/pages/editor/new.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -15,31 +15,28 @@ import { useEffect, useState } from 'react'
 import { Button, Input, message } from 'antd'
 import request from '../../../../service/fetch'
 import { useRouter } from 'next/navigation'
-import { observer } from 'mobx-react-lite'
-import { useStore } from '../../../../../store'
 
 const MDEditor = dynamic(() => import('@uiw/react-md-editor'), {
   ssr: false,
 })
 
-function EditorEdit({ params: { id } }: { params: { id: number } }) {
+const EditorEdit = ({ params: { id } }: { params: { id: number } }) => {
   const [title, setTitle] = useState('')
   const { push } = useRouter()
   const [content, setContent] = useState('**Hello world!!!**')
-
-  const store = useStore()
-  const { id: userId } = store.user.userInfo
 
   useEffect(() => {
     requestGetArticle()
   }, [])
 
   const requestGetArticle = () => {
-    if (id !== null && id !== undefined) {
+    if (id === null || id === undefined) {
+      console.log('跳出请求了' + id)
       return
     }
+    console.log('发起请求了')
     request
-      .post('api/article/get', {
+      .post('/api/article/get', {
         articleId: id,
       })
       .then((res: any) => {
@@ -58,17 +55,17 @@ function EditorEdit({ params: { id } }: { params: { id: number } }) {
     } else {
       //调用接口
       request
-        .post('/api/article/publish', {
+        .post('/api/article/update', {
           title,
           content,
-          id: userId, //用户id
+          articleId: id, //用户id
         })
         .then((res: any) => {
           if (res?.code === 0) {
-            message.success('发布成功')
-            push(`/user/${id}`)
+            message.success('更新成功')
+            push(`/article/${id}`)
           } else {
-            message.error(res?.msg || '发布失败')
+            message.error(res?.msg || '更新失败')
           }
         })
     }
@@ -91,7 +88,7 @@ function EditorEdit({ params: { id } }: { params: { id: number } }) {
           value={title}
           onChange={handleTitleChange}
         ></Input>
-        <Button type="primary" onClick={handlePublish}>
+        <Button type="default" onClick={handlePublish}>
           发布
         </Button>
       </div>
@@ -104,4 +101,4 @@ function EditorEdit({ params: { id } }: { params: { id: number } }) {
   )
 }
 
-export default observer(EditorEdit)
+export default EditorEdit
