@@ -13,7 +13,7 @@ import { Article } from "./article";
 @Entity()
 export class Comment extends BaseEntity {
   @PrimaryGeneratedColumn()
-  article_id!: number;
+  id!: number;
 
   @Column()
   content!: string;

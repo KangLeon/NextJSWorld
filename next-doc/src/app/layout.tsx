@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 22:22:32
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-23 13:07:34
+ * @LastEditTime: 2024-02-23 16:41:52
  * @FilePath: /next-doc/src/app/layout.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,6 +16,8 @@ import { StoreProvider } from '../../store'
 import { getCookie } from 'cookies-next'
 import { usePathname, useRouter } from 'next/navigation'
 import path from 'path'
+import { AntdRegistry } from '@ant-design/nextjs-registry';
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -49,21 +51,23 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <StoreProvider
-          initialValue={{
-            user: {
-              userInfo: {
-                id,
-                nickname,
-                avatar,
-              },
-            },
-          }}
-        >
-          <main>
-            {renderComponent()}
-          </main>
-        </StoreProvider>
+        <AntdRegistry>
+          <StoreProvider
+              initialValue={{
+                user: {
+                  userInfo: {
+                    id,
+                    nickname,
+                    avatar,
+                  },
+                },
+              }}
+            >
+              <main>
+                {renderComponent()}
+              </main>
+            </StoreProvider>
+          </AntdRegistry>
       </body>
     </html>
   )
