@@ -8,8 +8,6 @@
  */
 'use client'
 
-import '@uiw/react-md-editor/markdown-editor.css'
-import '@uiw/react-markdown-preview/markdown.css'
 import dynamic from 'next/dynamic'
 import { useEffect, useState } from 'react'
 import { Button, Input, Select, message } from 'antd'

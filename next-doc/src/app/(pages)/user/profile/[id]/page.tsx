@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-24 19:45:50
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-24 20:18:26
+ * @LastEditTime: 2024-02-24 20:20:58
  * @FilePath: /next-doc/src/app/(pages)/user/profile/[id]/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -57,6 +57,7 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
       .then((res: any) => {
         if (res?.code === 0) {
           form.setFieldsValue(res?.data)
+          message.success('个人信息更新成功')
         } else {
           message.error(res?.msg || '用户信息更新失败')
         }
@@ -72,15 +73,12 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
             <Form.Item label="用户名" name="nickname">
               <Input placeholder="请输入用户名"></Input>
             </Form.Item>
-
             <Form.Item label="职业" name="job">
               <Input placeholder="请输入职位"></Input>
             </Form.Item>
-
             <Form.Item label="个人介绍" name="introduce">
               <Input placeholder="请输入个人介绍"></Input>
             </Form.Item>
-
             <Form.Item {...tailLayout}>
               <Button type="primary" htmlType="submit">
                 保存修改

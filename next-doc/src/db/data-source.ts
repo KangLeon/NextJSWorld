@@ -14,12 +14,12 @@ import { Article } from "./entity/article";
 import { Tag } from "./entity/tag";
 
 export const AppDataSource = new DataSource({
-    type: "mysql",
-    host: "127.0.0.1",
-    port: 3306,
-    username: "root",
-    password: "Kangleon28",
-    database: "nextDB",
+    type: 'mysql',
+    host: process.env.DATABASE_HOST,
+    port: Number(process.env.DATABASE_PORT),
+    username: process.env.DATABASE_USERNAME,
+    password: process.env.DATABASE_PASSWORD,
+    database: process.env.DATABASE_NAME,
     entities: [User, Article, Comment, Tag],
     logging: ["error"],
 })

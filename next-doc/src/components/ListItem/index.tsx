@@ -8,7 +8,7 @@ import Markdown from "react-markdown";
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-22 22:06:17
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-24 19:39:45
+ * @LastEditTime: 2024-02-25 00:10:18
  * @FilePath: /next-doc/src/components/ListItem/index.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -41,12 +41,12 @@ const ListITem = (props: IProps) => {
             <div className="w-full">
                 <div className="mb-5 flex flex-row items-center">
                     <span className="py-0 px-10 pl-0 border-r border-gray-300 underline hover:text-blue-500">{user?.nickname}</span>
-                    <span className='py-0 px-10 text-zinc-700'>{formatDistanceToNow(article.update_time.getTime())}</span>
+                    <span className='py-0 px-10 text-zinc-700'>{formatDistanceToNow(article.update_time)}</span>
                 </div>
                 <h4 className="text-gray-700 text-xl overflow-hidden text-ellipsis whitespace-nowrap mb-5">{article?.title}</h4>
-                <p className="text-base text-zinc-400 overflow-hidden text-ellipsis whitespace-nowrap mb-5">
+                <div className="text-base text-zinc-400 overflow-hidden text-ellipsis whitespace-nowrap mb-5">
                     <Markdown>{article?.content}</Markdown>
-                </p>
+                </div>
                 <div className='flex flex-row items-center'>
                     <EyeOutlined></EyeOutlined>
                     <span className='ml-5'>{article?.views}</span>
