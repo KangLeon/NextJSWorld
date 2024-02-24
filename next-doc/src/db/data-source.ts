@@ -11,6 +11,7 @@ import { DataSource } from "typeorm";
 import { User } from "./entity/user";
 import { Comment } from "./entity/comment";
 import { Article } from "./entity/article";
+import { Tag } from "./entity/tag";
 
 export const AppDataSource = new DataSource({
     type: "mysql",
@@ -19,7 +20,7 @@ export const AppDataSource = new DataSource({
     username: "root",
     password: "Kangleon28",
     database: "nextDB",
-    entities: [User, Article, Comment],
+    entities: [User, Article, Comment, Tag],
     logging: ["error"],
 })
 

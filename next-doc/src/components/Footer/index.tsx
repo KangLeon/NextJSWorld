@@ -9,7 +9,7 @@
 import { NextPage } from 'next'
 
 const Footer: NextPage = () => {
-  return <div className="text-center text-gray-400 p-20">AI 工坊</div>
+  return <div className="text-center text-gray-400 p-20">AI 部落</div>
 }
 
 export default Footer
