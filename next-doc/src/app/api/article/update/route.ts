@@ -10,6 +10,7 @@
 import { initDB } from "@/db"
 import { AppDataSource } from "@/db/data-source"
 import { Article } from "@/db/entity/article"
+import { Tag } from "@/db/entity/tag"
 
 export async function POST(
     request: Request) {    
@@ -19,6 +20,7 @@ export async function POST(
     const title = formData.title
     const content = formData.content
     const articleId = formData.articleId
+    const tagIDs = formData.tagIDs
 
     console.log("输入参数"+JSON.stringify(formData))
     
@@ -36,11 +38,15 @@ export async function POST(
         where: { article_id: articleId },
         relations: ['user'],
     })
+    const tags = await AppDataSource.getRepository(Tag).find({
+        where: tagIDs?.map((tagId: number) => ({id: tagId}))
+    })
 
     if (article) {
         article.title = title
         article.content = content
         article.update_time = new Date()
+        article.tags = tags
 
         const resArticle = await AppDataSource.getRepository(Article).save(article)
         console.log("更新了article" + JSON.stringify(resArticle))

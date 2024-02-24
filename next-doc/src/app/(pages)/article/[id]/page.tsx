@@ -89,7 +89,7 @@ const Page = ({ params: { id } }: { params: { id: number } }) => {
   }
 
   return (
-    <div className="mx-40 px-5 py-5 bg-white">
+    <div className="px-5 py-5 bg-white">
       <h2 className="text-3xl font-bold mb-10 pt-10">{article?.title}</h2>
       <div className="flex flex-row justify-start items-center mb-8">
         <Avatar src={article?.user?.avatar} size={50}></Avatar>

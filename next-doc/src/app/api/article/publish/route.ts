@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-20 20:41:02
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-22 21:24:05
+ * @LastEditTime: 2024-02-24 18:33:30
  * @FilePath: /next-doc/pages/api/articles.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -10,6 +10,7 @@
 import { initDB } from "@/db"
 import { AppDataSource } from "@/db/data-source"
 import { Article } from "@/db/entity/article"
+import { Tag } from "@/db/entity/tag"
 import { User } from "@/db/entity/user"
 
 export async function POST(
@@ -20,6 +21,7 @@ export async function POST(
     const title = formData.title
     const content = formData.content
     const id = formData.id
+    const tagIDs = formData.tagIDs
 
     console.log("输入参数"+JSON.stringify(formData))
     
@@ -34,7 +36,10 @@ export async function POST(
 
     const user = await AppDataSource.getRepository(User).findOneBy({
             id,
-        })
+    })
+    const tags = await AppDataSource.getRepository(Tag).find({
+        where: tagIDs?.map((tagId: number) => ({id: tagId}))
+    })
 
     //创建文章
     const article = new Article()
@@ -46,8 +51,11 @@ export async function POST(
     article.views = 0
 
     if (user !== null) {
-        console.log("找到了user"+ JSON.stringify(user))
         article.user = user
+    }
+
+    if (tags) {
+        article.tags = tags
     }
 
     const resArticle = await AppDataSource.getRepository(Article).save(article)

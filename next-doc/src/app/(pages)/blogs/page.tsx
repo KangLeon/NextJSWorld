@@ -12,7 +12,7 @@ import { getRandomColor } from "@/utils"
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-22 11:50:09
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-24 15:02:13
+ * @LastEditTime: 2024-02-24 18:50:23
  * @FilePath: /next-doc/src/app/blogs/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -106,7 +106,7 @@ const Page = () => {
     </div>,
   },
   ];1
-  return <div className="mx-40">
+  return <div>
     <Tabs defaultActiveKey="all" items={items} onChange={onChange} />
   </div>
 }
