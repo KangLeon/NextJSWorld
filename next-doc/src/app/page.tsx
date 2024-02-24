@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-01-27 22:22:32
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-23 00:04:51
+ * @LastEditTime: 2024-02-24 13:56:11
  * @FilePath: /next-doc/src/app/page.tsx
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -42,7 +42,7 @@ export default async function Home(props: IProps) {
 
   console.log('拿到了文章' + JSON.stringify(data))
   return (
-    <div>
+    <div className="mx-40">
       {data?.props?.map((article) => (
         <>
           <ListItem key={article.article_id} article={article}></ListItem>

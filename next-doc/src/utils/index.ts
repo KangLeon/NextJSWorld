@@ -2,7 +2,7 @@
  * @Author: JY jitengjiao@bytedance.com
  * @Date: 2024-02-21 17:28:38
  * @LastEditors: JY jitengjiao@bytedance.com
- * @LastEditTime: 2024-02-21 23:08:26
+ * @LastEditTime: 2024-02-24 14:52:51
  * @FilePath: /next-doc/src/utils/index.ts
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -47,4 +47,23 @@ export const clearCookie = (cookies: any) => {
         path, 
         expires
     })
+}
+
+export function getRandomColor(): string {
+  const colors = [
+    "magenta",
+    "red",
+    "volcano",
+    "orange",
+    "gold",
+    "lime",
+    "green",
+    "cyan",
+    "blue",
+    "geekblue",
+    "purple"
+  ];
+
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
