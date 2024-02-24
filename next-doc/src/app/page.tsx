@@ -36,7 +36,6 @@ interface IProps {
 export default async function Home(props: IProps) {
   const data = await getData()
 
-  console.log('拿到了文章' + JSON.stringify(data))
   return (
     <div className="mt-10 ">
       {data?.props?.map((article) => (

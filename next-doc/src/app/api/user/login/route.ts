@@ -1,3 +1,11 @@
+/*
+ * @Author: JY jitengjiao@bytedance.com
+ * @Date: 2024-02-20 21:41:03
+ * @LastEditors: JY jitengjiao@bytedance.com
+ * @LastEditTime: 2024-02-24 20:14:23
+ * @FilePath: /next-doc/src/app/api/user/login/route.ts
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+ */
 import { setCookie } from '../../../../utils/index';
 import { NextApiRequest, NextApiResponse } from "next"
 import { AppDataSource } from "../../../../db/data-source"
